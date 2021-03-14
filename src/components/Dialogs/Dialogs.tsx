@@ -36,7 +36,7 @@ function Dialogs(props: DialogsStatePropsType) {
 			</div>
 			<div className={s.messages}>
 				{messagesElements}
-				<div><textarea ref={newMessage} onChange={updateNewTextMessage} value={state.messagesPage.newTextMessage}></textarea></div>
+				<div><textarea ref={newMessage} onChange={updateNewTextMessage} value={props.state.newTextMessage}></textarea></div>
 				<div><button onClick={addMessage}>Add message</button></div>
 			</div>
 		</div>

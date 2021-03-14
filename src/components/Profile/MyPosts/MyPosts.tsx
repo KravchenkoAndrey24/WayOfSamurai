@@ -17,6 +17,7 @@ function MyPosts(props: MyPostsPropsType) {
 	let newPostElement = React.createRef<HTMLTextAreaElement>();
 	let addPost = () => {
 		if (newPostElement.current) {
+			debugger
 			props.addPost();
 		}
 	}
