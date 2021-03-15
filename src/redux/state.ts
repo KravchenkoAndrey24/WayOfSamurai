@@ -1,4 +1,8 @@
-
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_TEXT_MESSAGE = 'UPDATE-NEW-TEXT-MESSAGE';
+const ADD_NEWS = 'ADD-NEWS';
 
 export type MessageType = {
 	id: number
@@ -35,16 +39,43 @@ export type RootStateType = {
 	messagesPage: DialogsPageType
 	newsPage: newsPageType
 }
+
+export type AddPostActionType = {
+	type: 'ADD-POST'
+
+}
+export type UpdateNewPostTextActionType = {
+	type: 'UPDATE-NEW-POST-TEXT'
+	newText: string
+}
+type AddMessageActionType = {
+	type: 'ADD-MESSAGE'
+	message: string
+}
+type UpdateNewTextMessageActionType = {
+	type: 'UPDATE-NEW-TEXT-MESSAGE'
+	newMessage: string
+}
+
+type AddNewsActionType = {
+	type: 'ADD-NEWS'
+	timeOfPublication: string
+	textNews: string
+}
+
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewTextMessageActionType | AddNewsActionType;
+
 export type StoreType = {
 	_state: RootStateType
 	getState: () => RootStateType
 	_callSubscriber: () => void
-	addPost: () => void
+	/* addPost: () => void
 	updateNewPostText: (newText: string) => void
 	addMessage: (message: string) => void
 	updateNewTextMessage: (newMessage: string) => void
-	addNews: (textNews: string, timeOfPublication: string) => void
+	addNews: (textNews: string, timeOfPublication: string) => void */
 	subscribe: (callback: () => void) => void
+	dispatch: (action: ActionsTypes) => void
 }
 
 let store: StoreType = {
@@ -84,14 +115,20 @@ let store: StoreType = {
 			]
 		}
 	},
-	getState() {
-		return this._state;
-	},
 	_callSubscriber() {
 		console.log('State changed');
 	},
-	addPost() {
-		debugger
+
+
+	getState() {
+		return this._state;
+	},
+	subscribe(observer: () => void) {
+		this._callSubscriber = observer; // наблюдатель observer
+	},
+
+
+	/* addPost() {
 		let newPost: PostType = {
 			id: 5,
 			message: this._state.profilePage.newPostText,
@@ -102,7 +139,6 @@ let store: StoreType = {
 		this._callSubscriber();
 	},
 	updateNewPostText(newText: string) {
-		debugger
 		this._state.profilePage.newPostText = newText;
 		this._callSubscriber();
 	},
@@ -127,12 +163,65 @@ let store: StoreType = {
 		};
 		this._state.newsPage.news.push(newNews);
 		this._callSubscriber();
-	},
-	subscribe(observer: () => void) {
-		this._callSubscriber = observer; // наблюдатель observer
+	}, */
+	dispatch(action) { // {type: 'ADD-POST'}
+		if (action.type === ADD_POST) {
+			let newPost: PostType = {
+				id: 5,
+				message: this._state.profilePage.newPostText,
+				likesCount: 0,
+			};
+			this._state.profilePage.posts.push(newPost);
+			this._state.profilePage.newPostText = '';
+			this._callSubscriber();
+		} else if (action.type === UPDATE_NEW_POST_TEXT) {
+			this._state.profilePage.newPostText = action.newText;
+			this._callSubscriber();
+		} else if (action.type === ADD_MESSAGE) {
+			let newMessage: MessageType = {
+				id: 5,
+				message: action.message
+			};
+			this._state.messagesPage.messages.push(newMessage);
+			this._state.messagesPage.newTextMessage = '';
+			this._callSubscriber();
+		} else if (action.type === UPDATE_NEW_TEXT_MESSAGE) {
+			this._state.messagesPage.newTextMessage = action.newMessage;
+			this._callSubscriber();
+		} else if (action.type === ADD_NEWS) {
+			let newNews: NewsType = {
+				id: 4,
+				timeOfPublication: action.timeOfPublication,
+				textNews: action.textNews,
+			};
+			this._state.newsPage.news.push(newNews);
+			this._callSubscriber();
+		}
 	}
-
 };
+
+export const addPostActionCreator = (): AddPostActionType => ({ type: ADD_POST } as const)
+
+export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType => ({
+	type: UPDATE_NEW_POST_TEXT,
+	newText: text
+} as const)
+
+export const addMessageActionCreator = (message: string): AddMessageActionType => ({
+	type: ADD_MESSAGE,
+	message: message
+} as const)
+
+export const updateNewTextMessageActionCreator = (newMessage: string): UpdateNewTextMessageActionType => ({
+	type: UPDATE_NEW_TEXT_MESSAGE,
+	newMessage: newMessage
+} as const)
+
+export const addNewsActionCreator = (timeOfPublication: string, textNews: string): AddNewsActionType => ({
+	type: ADD_NEWS,
+	timeOfPublication: timeOfPublication,
+	textNews: textNews,
+} as const)
 
 
 export default store;

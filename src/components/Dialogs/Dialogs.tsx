@@ -1,5 +1,5 @@
 import React from 'react';
-import state, { DialogsPageType } from '../../redux/state';
+import { ActionsTypes, addMessageActionCreator, DialogsPageType, updateNewTextMessageActionCreator } from '../../redux/state';
 import DialogItem from './DialogItem/DialogItem';
 import s from './Dialogs.module.css'
 import Message from './Message/Message';
@@ -7,8 +7,7 @@ import Message from './Message/Message';
 
 type DialogsStatePropsType = {
 	state: DialogsPageType
-	addMessage: (message: string) => void
-	updateNewTextMessage: (newMessage: string) => void
+	dispatch: (action: ActionsTypes) => void
 }
 
 function Dialogs(props: DialogsStatePropsType) {
@@ -20,13 +19,14 @@ function Dialogs(props: DialogsStatePropsType) {
 	let addMessage = () => {
 		if (newMessage.current) {
 			let text = newMessage.current?.value;
-			props.addMessage(text);
+			props.dispatch(addMessageActionCreator(text))
 			newMessage.current.value = ''
 		}
 	}
 	let updateNewTextMessage = () => {
 		if (newMessage.current?.value) {
-			props.updateNewTextMessage(newMessage.current?.value);
+			let text = newMessage.current?.value
+			props.dispatch(updateNewTextMessageActionCreator(text))
 		}
 	}
 	return (

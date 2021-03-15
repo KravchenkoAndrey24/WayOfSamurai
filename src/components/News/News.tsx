@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useState } from 'react';
-import { newsPageType } from '../../redux/state';
+import { ActionsTypes, addNewsActionCreator, newsPageType } from '../../redux/state';
 import OneNews from './OneNews/OneNews';
 import s from './News.module.css'
 
 type NewsType = {
 	state: newsPageType;
-	addNews: (textNews: string, timeOfPublication: string) => void
+	dispatch: (action: ActionsTypes) => void
 }
 
 function News(props: NewsType) {
@@ -21,7 +21,7 @@ function News(props: NewsType) {
 		let timeOfPublication = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
 		if (textNews) {
-			props.addNews(textNews, timeOfPublication);
+			props.dispatch(addNewsActionCreator(timeOfPublication, textNews))
 		} else {
 			setError('Вы не ввели новость')
 		}
