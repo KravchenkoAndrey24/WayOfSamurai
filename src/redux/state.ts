@@ -50,7 +50,6 @@ export type UpdateNewPostTextActionType = {
 }
 type AddMessageActionType = {
 	type: 'ADD-MESSAGE'
-	message: string
 }
 type UpdateNewTextMessageActionType = {
 	type: 'UPDATE-NEW-TEXT-MESSAGE'
@@ -179,8 +178,8 @@ let store: StoreType = {
 			this._callSubscriber();
 		} else if (action.type === ADD_MESSAGE) {
 			let newMessage: MessageType = {
-				id: 5,
-				message: action.message
+				id: 6,
+				message: this._state.messagesPage.newTextMessage,
 			};
 			this._state.messagesPage.messages.push(newMessage);
 			this._state.messagesPage.newTextMessage = '';
@@ -207,9 +206,8 @@ export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextA
 	newText: text
 } as const)
 
-export const addMessageActionCreator = (message: string): AddMessageActionType => ({
-	type: ADD_MESSAGE,
-	message: message
+export const addMessageActionCreator = (): AddMessageActionType => ({
+	type: ADD_MESSAGE
 } as const)
 
 export const updateNewTextMessageActionCreator = (newMessage: string): UpdateNewTextMessageActionType => ({
