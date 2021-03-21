@@ -5,7 +5,7 @@ import Navbar from './components/Navbar/Navbar';
 import Dialogs from './components/Dialogs/Dialogs';
 import Profile from './components/Profile/Profile';
 import { Route } from 'react-router-dom';
-import { ActionsTypes, RootStateType } from './redux/state';
+import { ActionsTypes, RootStateType } from './redux/store';
 import News from './components/News/News';
 
 
@@ -16,6 +16,7 @@ type AppPropsType = {
 }
 
 function App(props: AppPropsType) {
+
   return (
     <div className='app-wrapper' >
       <Header />

@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
-import { ActionsTypes, addNewsActionCreator, newsPageType } from '../../redux/state';
+import { ActionsTypes, newsPageType } from '../../redux/store';
 import OneNews from './OneNews/OneNews';
 import s from './News.module.css'
+import { addNewsActionCreator } from '../../redux/newsReducer';
 
 type NewsType = {
 	state: newsPageType;

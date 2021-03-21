@@ -1,5 +1,5 @@
 import React from 'react';
-import { NewsType } from '../../../redux/state';
+import { NewsType } from '../../../redux/store';
 import s from './OneNews.module.css';
 
 
