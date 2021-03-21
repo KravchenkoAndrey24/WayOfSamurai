@@ -1,4 +1,5 @@
-import { ActionsTypes, PostType, ProfilePageType } from "./store";
+import { ActionsTypes } from "./redux-store";
+import { PostType, ProfilePageType } from "./store";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';

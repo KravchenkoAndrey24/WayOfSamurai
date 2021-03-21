@@ -1,4 +1,5 @@
-import { DialogsPageType, MessageType, ActionsTypes } from "./store";
+import { ActionsTypes } from "./redux-store";
+import { DialogsPageType, MessageType } from "./store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_TEXT_MESSAGE = 'UPDATE-NEW-TEXT-MESSAGE';

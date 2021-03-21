@@ -1,6 +1,6 @@
 import React from 'react';
 import { addMessageActionCreator, updateNewTextMessageActionCreator } from '../../redux/dialogsReducer';
-import { StoreType } from '../../redux/store';
+import { StoreType } from '../../redux/redux-store';
 import Dialogs from './Dialogs';
 
 type DialogsContainerStatePropsType = {

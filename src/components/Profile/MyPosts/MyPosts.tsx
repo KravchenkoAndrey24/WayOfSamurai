@@ -1,6 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/profileReducer';
-import { ActionsTypes, PostType, ProfilePageType } from '../../../redux/store';
+import { PostType } from '../../../redux/store';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
@@ -15,7 +14,7 @@ type MyPostsPropsType = {
 
 function MyPosts(props: MyPostsPropsType) {
 
-	let postsElements = props.posts.map(item => <Post message={item.message} id={item.id} likesCount={item.likesCount} />)
+	let postsElements = props.posts.map(item => <Post key={item.id} message={item.message} id={item.id} likesCount={item.likesCount} />)
 	let newPostText = props.newPostText;
 
 	let onAddPost = () => {

@@ -1,13 +1,11 @@
 import React from 'react';
-import MyPosts from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import s from './Profile.module.css';
-import { ActionsTypes, ProfilePageType, StoreType } from '../../redux/store';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
+import { StoreType } from '../../redux/redux-store';
 
 
 export type ProfileStatePropsType = {
-
 	store: StoreType
 }
 

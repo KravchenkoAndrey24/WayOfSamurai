@@ -1,6 +1,6 @@
-import dialogsReducer, { AddMessageActionType, UpdateNewTextMessageActionType } from "./dialogsReducer";
-import newsReducer, { AddNewsActionType } from "./newsReducer";
-import profileReducer, { AddPostActionType, UpdateNewPostTextActionType } from "./profileReducer";
+import { AddMessageActionType, UpdateNewTextMessageActionType } from "./dialogsReducer";
+import { AddNewsActionType, updateTextNewsActionCreator } from "./newsReducer";
+import { AddPostActionType, UpdateNewPostTextActionType } from "./profileReducer";
 
 
 
@@ -20,7 +20,6 @@ export type PostType = {
 export type NewsType = {
 	id: number
 	textNews: string
-	timeOfPublication: string
 }
 export type ProfilePageType = {
 	posts: PostType[]
@@ -33,6 +32,7 @@ export type DialogsPageType = {
 }
 export type newsPageType = {
 	news: NewsType[]
+	newTextNews: string
 }
 export type RootStateType = {
 	profilePage: ProfilePageType
@@ -45,7 +45,7 @@ export type RootStateType = {
 
 
 
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewTextMessageActionType | AddNewsActionType;
+/* export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewTextMessageActionType | AddNewsActionType | updateTextNewsActionCreator;
 
 export type StoreType = {
 	_state: RootStateType
@@ -53,7 +53,7 @@ export type StoreType = {
 	_callSubscriber: () => void
 	subscribe: (callback: () => void) => void
 	dispatch: (action: ActionsTypes) => void
-}
+} */
 
 /* export type StoreType = {
 	_state: RootStateType

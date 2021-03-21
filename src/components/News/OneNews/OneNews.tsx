@@ -8,7 +8,7 @@ function OneNews(props: NewsType) {
 
 	return (
 		<div >
-			<span className={s.time}>{props.timeOfPublication} </span>{props.textNews}
+			<span className={s.time}> </span>{props.textNews}
 		</div>
 	)
 }
