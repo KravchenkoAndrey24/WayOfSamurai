@@ -55,6 +55,14 @@ export type StoreType = {
 	dispatch: (action: ActionsTypes) => void
 }
 
+/* export type StoreType = {
+	_state: RootStateType
+	getState: () => RootStateType
+	_callSubscriber: () => void
+	subscribe: (callback: () => void) => void
+	dispatch: (action: ActionsTypes) => void
+}
+
 let store: StoreType = {
 	_state: {
 		profilePage: {
@@ -112,11 +120,11 @@ let store: StoreType = {
 		this._callSubscriber();
 	}
 };
+ */
 
 
 
 
 
 
-
-export default store;
+/* export default store; */
