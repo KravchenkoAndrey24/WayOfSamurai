@@ -1,30 +1,40 @@
 import React from 'react';
-import { addNewsActionCreator, updateTextNewsActionCreator } from '../../redux/newsReducer';
-import { StoreType } from '../../redux/redux-store';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { addNewsActionCreator, InitialStateNewsType, updateTextNewsActionCreator } from '../../redux/newsReducer';
+import { AppStateType } from '../../redux/redux-store';
 import News from './News';
 
-type NewsType = {
-	store: StoreType
+
+
+type MapStateToPropsType = {
+	newsPage: InitialStateNewsType
 }
 
-function NewsContainer(props: NewsType) {
-
-	let state = props.store.getState();
-
-
-	let addNews = () => {
-		props.store.dispatch(addNewsActionCreator())
-	}
-
-	let onChangeTextNews = (text: string) => {
-		let action = updateTextNewsActionCreator(text);
-		props.store.dispatch(action);
-	}
-
-
-	return (
-		<News addNews={addNews} onChangeTextNews={onChangeTextNews} textNews={state.newsPage.newTextNews} news={state.newsPage.news} />
-	)
+type MapDispatchToProps = {
+	addNews: () => void
+	onChangeTextNews: (text: string) => void
 }
+
+export type NewsProps = MapStateToPropsType & MapDispatchToProps;
+
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+	return {
+		newsPage: state.newsPage
+	}
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
+	return {
+		addNews: () => {
+			dispatch(addNewsActionCreator())
+		},
+		onChangeTextNews: (text: string) => {
+			dispatch(updateTextNewsActionCreator(text))
+		}
+	}
+}
+
+const NewsContainer = connect(mapStateToProps, mapDispatchToProps)(News);
 
 export default NewsContainer;

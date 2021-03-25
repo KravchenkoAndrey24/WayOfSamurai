@@ -1,5 +1,4 @@
 import { ActionsTypes } from "./redux-store";
-import { PostType, ProfilePageType } from "./store";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -12,8 +11,19 @@ export type UpdateNewPostTextActionType = {
 	newText: string
 }
 
+export type PostType = {
+	id: number
+	message: string
+	likesCount: number
+}
 
-let initialState = {
+export type InitialProfileStateType = {
+	posts: PostType[]
+	newPostText: string
+}
+
+
+let initialState: InitialProfileStateType = {
 	posts: [
 		{ id: 1, message: 'Hi, how are you?', likesCount: 23 },
 		{ id: 2, message: "it's my first post", likesCount: 32 },
@@ -23,7 +33,7 @@ let initialState = {
 	newPostText: 'it-kamasutra.com'
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
+const profileReducer = (state: InitialProfileStateType = initialState, action: ActionsTypes): InitialProfileStateType => {
 	switch (action.type) {
 		case ADD_POST:
 			let newPost: PostType = {
@@ -31,13 +41,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 				message: state.newPostText,
 				likesCount: 0,
 			};
-			state.posts.push(newPost);
-			state.newPostText = '';
-			return state
+			return { ...state, posts: [...state.posts.map(item => ({ ...item })), newPost], newPostText: '' };
 
 		case UPDATE_NEW_POST_TEXT:
-			state.newPostText = action.newText;
-			return state
+			return { ...state, posts: [...state.posts.map(item => ({ ...item }))], newPostText: action.newText };
 		default:
 			return state
 	}

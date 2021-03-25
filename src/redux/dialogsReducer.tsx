@@ -1,5 +1,4 @@
 import { ActionsTypes } from "./redux-store";
-import { DialogsPageType, MessageType } from "./store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_TEXT_MESSAGE = 'UPDATE-NEW-TEXT-MESSAGE';
@@ -11,10 +10,22 @@ export type UpdateNewTextMessageActionType = {
 	type: 'UPDATE-NEW-TEXT-MESSAGE'
 	newMessage: string
 }
+export type DialogsType = {
+	id: number
+	name: string
+}
+export type MessageType = {
+	id: number
+	message: string
+}
 
+export type InitialDialogsStateType = {
+	messages: MessageType[]
+	dialogs: DialogsType[]
+	newTextMessage: string
+}
 
-
-let initialState = {
+let initialState: InitialDialogsStateType = {
 	messages: [
 		{ id: 1, message: 'Hi' },
 		{ id: 2, message: 'How is ypur it?' },
@@ -33,19 +44,16 @@ let initialState = {
 	newTextMessage: '',
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
+const dialogsReducer = (state: InitialDialogsStateType = initialState, action: ActionsTypes): InitialDialogsStateType => {
 	switch (action.type) {
 		case ADD_MESSAGE:
 			let newMessage: MessageType = {
 				id: 6,
 				message: state.newTextMessage,
 			};
-			state.messages.push(newMessage);
-			state.newTextMessage = '';
-			return state
+			return { ...state, messages: [...state.messages.map(item => ({ ...item })), newMessage], dialogs: [...state.dialogs.map(item => ({ ...item }))], newTextMessage: '' }
 		case UPDATE_NEW_TEXT_MESSAGE:
-			state.newTextMessage = action.newMessage;
-			return state
+			return { ...state, messages: [...state.messages.map(item => ({ ...item }))], dialogs: [...state.dialogs.map(item => ({ ...item }))], newTextMessage: action.newMessage }
 		default:
 			return state
 	}

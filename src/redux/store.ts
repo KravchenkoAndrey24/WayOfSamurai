@@ -4,50 +4,12 @@ import { AddPostActionType, UpdateNewPostTextActionType } from "./profileReducer
 
 
 
-export type MessageType = {
-	id: number
-	message: string
-}
-export type DialogsType = {
-	id: number
-	name: string
-}
-export type PostType = {
-	id: number
-	message: string
-	likesCount: number
-}
-export type NewsType = {
-	id: number
-	textNews: string
-}
-export type ProfilePageType = {
-	posts: PostType[]
-	newPostText: string
-}
-export type DialogsPageType = {
-	messages: MessageType[]
-	dialogs: DialogsType[]
-	newTextMessage: string
-}
-export type newsPageType = {
-	news: NewsType[]
-	newTextNews: string
-}
-export type RootStateType = {
-	profilePage: ProfilePageType
-	messagesPage: DialogsPageType
-	newsPage: newsPageType
-}
 
 
 
 
 
-
-/* export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewTextMessageActionType | AddNewsActionType | updateTextNewsActionCreator;
-
-export type StoreType = {
+/* export type StoreType = {
 	_state: RootStateType
 	getState: () => RootStateType
 	_callSubscriber: () => void

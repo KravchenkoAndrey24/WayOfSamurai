@@ -1,29 +1,31 @@
 import { combineReducers, createStore } from "redux";
 import dialogsReducer from "./dialogsReducer";
-import newsReducer from "./newsReducer";
+import newsReducer, { updateTextNewsActionCreatorType } from "./newsReducer";
 import profileReducer from "./profileReducer";
 import { AddMessageActionType, UpdateNewTextMessageActionType } from "./dialogsReducer";
-import { AddNewsActionType, updateTextNewsActionCreator } from "./newsReducer";
+import { AddNewsActionType } from "./newsReducer";
 import { AddPostActionType, UpdateNewPostTextActionType } from "./profileReducer";
-import { RootStateType } from "./store";
 
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewTextMessageActionType | AddNewsActionType | updateTextNewsActionCreator;
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewTextMessageActionType | AddNewsActionType | updateTextNewsActionCreatorType;
 
 export type StoreType = {
-	_state: RootStateType
-	getState: () => RootStateType
+	_state: AppStateType
+	getState: () => AppStateType
 	_callSubscriber: () => void
 	subscribe: (callback: () => void) => void
 	dispatch: (action: ActionsTypes) => void
 }
 
 
-let reducers = combineReducers({
+let rootReducers = combineReducers({
 	profilePage: profileReducer,
 	messagesPage: dialogsReducer,
 	newsPage: newsReducer,
 });
 
-let store: StoreType = createStore(reducers);
+
+export type AppStateType = ReturnType<typeof rootReducers>;
+
+let store = createStore(rootReducers);
 
 export default store;
