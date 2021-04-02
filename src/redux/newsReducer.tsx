@@ -1,16 +1,13 @@
-import { ActionsTypes } from "./redux-store";
+// import { ActionsTypes } from "./redux-store";
 
 const ADD_NEWS = 'ADD-NEWS';
 const UPDATE_TEXT_NEWS = 'UPDATE-TEXT-NEWS';
 
-export type AddNewsActionType = {
-	type: 'ADD-NEWS'
-}
+export type AddNewsActionType = ReturnType<typeof addNewsActionCreator>
+export type updateTextNewsActionType = ReturnType<typeof updateTextNewsActionCreator>
 
-export type updateTextNewsActionCreatorType = {
-	type: 'UPDATE-TEXT-NEWS'
-	newTextNews: string
-}
+export type newsActionsTypes = AddNewsActionType | updateTextNewsActionType;
+
 
 export type NewsType = {
 	id: number
@@ -34,7 +31,7 @@ let initialState: InitialStateNewsType = {
 
 
 
-const newsReducer = (state: InitialStateNewsType = initialState, action: ActionsTypes): InitialStateNewsType => {
+const newsReducer = (state: InitialStateNewsType = initialState, action: newsActionsTypes): InitialStateNewsType => {
 	switch (action.type) {
 		case ADD_NEWS:
 			let newNews: NewsType = {
@@ -43,17 +40,17 @@ const newsReducer = (state: InitialStateNewsType = initialState, action: Actions
 			};
 			return { ...state, news: [...state.news.map(item => ({ ...item })), newNews], newTextNews: '' }
 		case UPDATE_TEXT_NEWS:
-			return { ...state, news: [...state.news.map(item => ({ ...item }))], newTextNews: action.newTextNews }
+			return { ...state, newTextNews: action.newTextNews }
 		default:
 			return state
 	}
 }
 
-export const addNewsActionCreator = (): AddNewsActionType => ({
+export const addNewsActionCreator = () => ({
 	type: ADD_NEWS,
 } as const)
 
-export const updateTextNewsActionCreator = (newTextNews: string): updateTextNewsActionCreatorType => ({
+export const updateTextNewsActionCreator = (newTextNews: string) => ({
 	type: UPDATE_TEXT_NEWS,
 	newTextNews: newTextNews,
 } as const)

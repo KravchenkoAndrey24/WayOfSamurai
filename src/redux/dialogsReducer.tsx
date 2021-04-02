@@ -1,15 +1,13 @@
-import { ActionsTypes } from "./redux-store";
+// import { ActionsTypes } from "./redux-store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_TEXT_MESSAGE = 'UPDATE-NEW-TEXT-MESSAGE';
 
-export type AddMessageActionType = {
-	type: 'ADD-MESSAGE'
-}
-export type UpdateNewTextMessageActionType = {
-	type: 'UPDATE-NEW-TEXT-MESSAGE'
-	newMessage: string
-}
+export type AddMessageActionType = ReturnType<typeof addMessageActionCreator>
+export type UpdateNewTextMessageActionType = ReturnType<typeof updateNewTextMessageActionCreator>
+
+export type dialogsActionsTypes = AddMessageActionType | UpdateNewTextMessageActionType
+
 export type DialogsType = {
 	id: number
 	name: string
@@ -44,16 +42,16 @@ let initialState: InitialDialogsStateType = {
 	newTextMessage: '',
 }
 
-const dialogsReducer = (state: InitialDialogsStateType = initialState, action: ActionsTypes): InitialDialogsStateType => {
+const dialogsReducer = (state: InitialDialogsStateType = initialState, action: dialogsActionsTypes): InitialDialogsStateType => {
 	switch (action.type) {
 		case ADD_MESSAGE:
 			let newMessage: MessageType = {
 				id: 6,
 				message: state.newTextMessage,
 			};
-			return { ...state, messages: [...state.messages.map(item => ({ ...item })), newMessage], dialogs: [...state.dialogs.map(item => ({ ...item }))], newTextMessage: '' }
+			return { ...state, messages: [...state.messages.map(item => ({ ...item })), newMessage], newTextMessage: '' }
 		case UPDATE_NEW_TEXT_MESSAGE:
-			return { ...state, messages: [...state.messages.map(item => ({ ...item }))], dialogs: [...state.dialogs.map(item => ({ ...item }))], newTextMessage: action.newMessage }
+			return { ...state, newTextMessage: action.newMessage }
 		default:
 			return state
 	}
@@ -61,11 +59,11 @@ const dialogsReducer = (state: InitialDialogsStateType = initialState, action: A
 
 
 
-export const addMessageActionCreator = (): AddMessageActionType => ({
+export const addMessageActionCreator = () => ({
 	type: ADD_MESSAGE
 } as const)
 
-export const updateNewTextMessageActionCreator = (newMessage: string): UpdateNewTextMessageActionType => ({
+export const updateNewTextMessageActionCreator = (newMessage: string) => ({
 	type: UPDATE_NEW_TEXT_MESSAGE,
 	newMessage: newMessage
 } as const)

@@ -4,8 +4,10 @@
     <list default="true" id="66450463-f4cc-4707-9d2b-e96614927146" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/dialogsReducer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/dialogsReducer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/newsReducer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/newsReducer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/profileReducer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/profileReducer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +26,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Main_TodoList/it-incubator-todolist-ts-01" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -48,6 +50,9 @@
       <workItem from="1616524161530" duration="1516000" />
       <workItem from="1616525977819" duration="1822000" />
       <workItem from="1616529737818" duration="942000" />
+      <workItem from="1616918540258" duration="1435000" />
+      <workItem from="1617044275792" duration="36000" />
+      <workItem from="1617300625385" duration="6000" />
     </task>
     <servers />
   </component>

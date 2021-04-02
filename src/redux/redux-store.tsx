@@ -1,12 +1,10 @@
 import { combineReducers, createStore } from "redux";
-import dialogsReducer from "./dialogsReducer";
-import newsReducer, { updateTextNewsActionCreatorType } from "./newsReducer";
-import profileReducer from "./profileReducer";
-import { AddMessageActionType, UpdateNewTextMessageActionType } from "./dialogsReducer";
-import { AddNewsActionType } from "./newsReducer";
-import { AddPostActionType, UpdateNewPostTextActionType } from "./profileReducer";
+import dialogsReducer, { dialogsActionsTypes } from "./dialogsReducer";
+import newsReducer, { newsActionsTypes } from "./newsReducer";
+import profileReducer, { profileActionsTypes } from "./profileReducer";
+import usersReducer, { usersActionsTypes } from "./usersReducer";
 
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewTextMessageActionType | AddNewsActionType | updateTextNewsActionCreatorType;
+export type ActionsTypes = profileActionsTypes | dialogsActionsTypes | newsActionsTypes | usersActionsTypes;
 
 export type StoreType = {
 	_state: AppStateType
@@ -21,6 +19,7 @@ let rootReducers = combineReducers({
 	profilePage: profileReducer,
 	messagesPage: dialogsReducer,
 	newsPage: newsReducer,
+	usersPage: usersReducer,
 });
 
 

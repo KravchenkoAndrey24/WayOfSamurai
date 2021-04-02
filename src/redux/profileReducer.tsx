@@ -1,15 +1,12 @@
-import { ActionsTypes } from "./redux-store";
+// import { ActionsTypes } from "./redux-store";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-export type AddPostActionType = {
-	type: 'ADD-POST'
-}
-export type UpdateNewPostTextActionType = {
-	type: 'UPDATE-NEW-POST-TEXT'
-	newText: string
-}
+export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
+
+export type profileActionsTypes = AddPostActionType | UpdateNewPostTextActionType
 
 export type PostType = {
 	id: number
@@ -33,7 +30,7 @@ let initialState: InitialProfileStateType = {
 	newPostText: 'it-kamasutra.com'
 }
 
-const profileReducer = (state: InitialProfileStateType = initialState, action: ActionsTypes): InitialProfileStateType => {
+const profileReducer = (state: InitialProfileStateType = initialState, action: profileActionsTypes): InitialProfileStateType => {
 	switch (action.type) {
 		case ADD_POST:
 			let newPost: PostType = {
@@ -44,14 +41,14 @@ const profileReducer = (state: InitialProfileStateType = initialState, action: A
 			return { ...state, posts: [...state.posts.map(item => ({ ...item })), newPost], newPostText: '' };
 
 		case UPDATE_NEW_POST_TEXT:
-			return { ...state, posts: [...state.posts.map(item => ({ ...item }))], newPostText: action.newText };
+			return { ...state, newPostText: action.newText }
 		default:
 			return state
 	}
 }
 
-export const addPostActionCreator = (): AddPostActionType => ({ type: ADD_POST } as const)
-export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType => ({
+export const addPostActionCreator = () => ({ type: ADD_POST } as const)
+export const updateNewPostTextActionCreator = (text: string) => ({
 	type: UPDATE_NEW_POST_TEXT,
 	newText: text
 } as const)

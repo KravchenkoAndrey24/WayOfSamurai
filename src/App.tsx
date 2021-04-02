@@ -6,12 +6,9 @@ import Profile from './components/Profile/Profile';
 import { Route } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import NewsContainer from './components/News/NewsContainer';
+import UsersContainer from './components/Users/UsersContainer';
 
 
-
-type AppPropsType = {
-  /* store: StoreType */
-}
 
 function App() {
 
@@ -20,9 +17,10 @@ function App() {
       <Header />
       <Navbar />
       <div className='app-wrapper-content' >
-        <Route path='/profile' render={() => <Profile /* store={props.store} */ />} />
-        <Route path='/dialogs' render={() => <DialogsContainer /* store={props.store} */ />} />
-        <Route path='/news' render={() => <NewsContainer /* store={props.store}  */ />} />
+        <Route path='/profile' render={() => <Profile />} />
+        <Route path='/dialogs' render={() => <DialogsContainer />} />
+        <Route path='/news' render={() => <NewsContainer />} />
+        <Route path='/users' render={() => <UsersContainer />} />
       </div>
     </div>
   );
