@@ -15,12 +15,16 @@ export type userType = {
 	id: string,
 	photoUrl: string
 	followed: boolean,
-	fullname: string,
+	name: string,
 	status: string,
 	location: {
 		city: string
 		country: string
-	}
+	},
+	photos: {
+		small: undefined | string,
+		large: undefined | string
+	},
 }
 export type InitialProfileStateType = {
 	users: userType[]
