@@ -1,34 +1,36 @@
-import axios from 'axios';
 import React from 'react';
-import s from './Users.module.css';
-import { usersPropsType } from './UsersContainer';
 import UserPhoto from '../../assets/images/user-male.png'
+import { userType } from '../../redux/usersReducer';
+import s from './Users.module.css';
 
+export type UsersType = {
+	totalUsersCount: number
+	pageSize: number
+	currentPage: number
+	users: userType[]
+	onPageChanged: (pageNumber: number) => void
+	follow: (userId: string) => void
+	unfollow: (userId: string) => void
+}
 
-function Users(props: usersPropsType) {
+export const Users = (props: UsersType) => {
 
-	let getUsers = () => {
-		if (props.users.length === 0) {
+	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+	let pages = [];
 
-			axios.get('https://social-network.samuraijs.com/api/1.0/users')
-				.then(response => {
-					console.log(response);
-					props.setUsers(response.data.items)
-				})
-
-			/* props.setUsers([
-				{ id: '1', photoUrl: 'https://www.meme-arsenal.com/memes/fd51570fb8df5c3bde2532971bf8df80.jpg', followed: false, fullname: 'Dmitry', status: 'i am a boss', location: { city: 'Minsk', country: 'Belarus' } },
-				{ id: '2', photoUrl: 'https://www.meme-arsenal.com/memes/fd51570fb8df5c3bde2532971bf8df80.jpg', followed: true, fullname: 'Sasha', status: 'i am a boss too', location: { city: 'Moscow', country: 'Russia' } },
-				{ id: '3', photoUrl: 'https://www.meme-arsenal.com/memes/fd51570fb8df5c3bde2532971bf8df80.jpg', followed: false, fullname: 'Andrey', status: 'i am a boss too', location: { city: 'Kiev', country: 'Ukraine' } },
-			]) */
-		}
+	for (let i = 1; i <= pagesCount; i++) {
+		pages.push(i);
 	}
-
-
-
 	return (
 		<div>
-			<button onClick={getUsers}>Get Users</button>
+
+			<div>
+				{pages.map(item => {
+					return <span onClick={
+						() => { props.onPageChanged(item) }
+					} className={props.currentPage === item ? s.selectedPage : ''}>{item}</span>
+				})}
+			</div>
 			{
 				props.users.map(item => <div key={item.id}>
 					<span>
@@ -53,8 +55,6 @@ function Users(props: usersPropsType) {
 					</span>
 				</div>)
 			}
-		</div>
+		</div >
 	)
 }
-
-export default Users;
