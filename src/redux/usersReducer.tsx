@@ -3,12 +3,16 @@
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS = 'SET_USERS';
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 
 export type followActionType = ReturnType<typeof followAC>;
 export type unfollowActionType = ReturnType<typeof unfollowAC>;
 export type setUsersActionType = ReturnType<typeof setUsersAC>;
+export type setCurrentPageActionType = ReturnType<typeof setCurrentPageAC>;
+export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>;
 
-export type usersActionsTypes = followActionType | unfollowActionType | setUsersActionType;
+export type usersActionsTypes = setTotalUsersCountActionType | followActionType | unfollowActionType | setUsersActionType | setCurrentPageActionType;
 
 
 export type userType = {
@@ -27,17 +31,18 @@ export type userType = {
 	},
 }
 export type InitialProfileStateType = {
-	users: userType[]
+	users: userType[],
+	pageSize: number,
+	totalUsersCount: number,
+	currentPage: number
 }
 
 
 let initialState: InitialProfileStateType = {
-	users: []
-	/* [
-		{ id: '1', photoUrl: 'https://www.meme-arsenal.com/memes/fd51570fb8df5c3bde2532971bf8df80.jpg', followed: false, fullname: 'Dmitry', status: 'i am a boss', location: { city: 'Minsk', country: 'Belarus' } },
-		{ id: '2', photoUrl: 'https://www.meme-arsenal.com/memes/fd51570fb8df5c3bde2532971bf8df80.jpg', followed: true, fullname: 'Sasha', status: 'i am a boss too', location: { city: 'Moscow', country: 'Russia' } },
-		{ id: '3', photoUrl: 'https://www.meme-arsenal.com/memes/fd51570fb8df5c3bde2532971bf8df80.jpg', followed: false, fullname: 'Andrey', status: 'i am a boss too', location: { city: 'Kiev', country: 'Ukraine' } },
-	] */
+	users: [],
+	pageSize: 5,
+	totalUsersCount: 0,
+	currentPage: 1
 }
 
 const usersReducer = (state: InitialProfileStateType = initialState, action: usersActionsTypes): InitialProfileStateType => {
@@ -65,16 +70,25 @@ const usersReducer = (state: InitialProfileStateType = initialState, action: use
 			}
 		}
 		case SET_USERS: {
-			return { ...state, users: [...state.users, ...action.users] }
+			return { ...state, users: action.users }
+		}
+		case SET_CURRENT_PAGE: {
+			return { ...state, currentPage: action.currentPage }
+		}
+		case SET_TOTAL_COUNT: {
+			return { ...state, totalUsersCount: action.totalCount }
+
 		}
 		default:
 			return state
 	}
 }
 
-export const followAC = (userId: string) => ({ type: FOLLOW, userId } as const)
-export const unfollowAC = (userId: string) => ({ type: UNFOLLOW, userId } as const)
-export const setUsersAC = (users: userType[]) => ({ type: SET_USERS, users } as const)
+export const followAC = (userId: string) => ({ type: FOLLOW, userId }) as const
+export const unfollowAC = (userId: string) => ({ type: UNFOLLOW, userId }) as const
+export const setUsersAC = (users: userType[]) => ({ type: SET_USERS, users }) as const
+export const setCurrentPageAC = (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage }) as const
+export const setTotalUsersCountAC = (totalCount: number) => ({ type: SET_TOTAL_COUNT, totalCount }) as const
 
 
 export default usersReducer;
