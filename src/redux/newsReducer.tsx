@@ -1,7 +1,11 @@
 // import { ActionsTypes } from "./redux-store";
 
-const ADD_NEWS = 'ADD-NEWS';
-const UPDATE_TEXT_NEWS = 'UPDATE-TEXT-NEWS';
+
+export enum NEWS_ACTIONS_TYPE {
+	ADD_NEWS = 'ADD-NEWS',
+	UPDATE_TEXT_NEWS = 'UPDATE-TEXT-NEWS'
+
+}
 
 export type AddNewsActionType = ReturnType<typeof addNewsActionCreator>
 export type updateTextNewsActionType = ReturnType<typeof updateTextNewsActionCreator>
@@ -33,13 +37,13 @@ let initialState: InitialStateNewsType = {
 
 const newsReducer = (state: InitialStateNewsType = initialState, action: newsActionsTypes): InitialStateNewsType => {
 	switch (action.type) {
-		case ADD_NEWS:
+		case NEWS_ACTIONS_TYPE.ADD_NEWS:
 			let newNews: NewsType = {
 				id: 4,
 				textNews: state.newTextNews
 			};
 			return { ...state, news: [...state.news.map(item => ({ ...item })), newNews], newTextNews: '' }
-		case UPDATE_TEXT_NEWS:
+		case NEWS_ACTIONS_TYPE.UPDATE_TEXT_NEWS:
 			return { ...state, newTextNews: action.newTextNews }
 		default:
 			return state
@@ -47,13 +51,13 @@ const newsReducer = (state: InitialStateNewsType = initialState, action: newsAct
 }
 
 export const addNewsActionCreator = () => ({
-	type: ADD_NEWS,
-} as const)
+	type: NEWS_ACTIONS_TYPE.ADD_NEWS,
+}) as const
 
 export const updateTextNewsActionCreator = (newTextNews: string) => ({
-	type: UPDATE_TEXT_NEWS,
+	type: NEWS_ACTIONS_TYPE.UPDATE_TEXT_NEWS,
 	newTextNews: newTextNews,
-} as const)
+}) as const
 
 
 
