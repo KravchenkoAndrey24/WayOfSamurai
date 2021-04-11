@@ -5,11 +5,7 @@ export enum PROFILE_ACTIONS_TYPE {
 	SET_USER_PROFILE = "SET_USER_PROFILE"
 }
 
-export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
-export type setUserProfileActionType = ReturnType<typeof setUserProfile>
-
-export type profileActionsTypes = AddPostActionType | UpdateNewPostTextActionType | setUserProfileActionType;
+export type profileActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator> | ReturnType<typeof setUserProfile>;
 
 export type PostType = {
 	id: number
@@ -17,24 +13,24 @@ export type PostType = {
 	likesCount: number
 }
 export type profileContactsType = {
-	facebook: string | null
-	website: string | null
-	vk: string | null
-	twitter: string | null
-	instagram: string | null
-	youtube: string | null
-	github: string | null
-	mainLink: string | null
+	facebook: string
+	website: string
+	vk: string
+	twitter: string
+	instagram: string
+	youtube: string
+	github: string
+	mainLink: string
 }
 export type profileType = {
 	aboutMe: string
 	contacts: profileContactsType
 	lookingForAJob: boolean
-	lookingForAJobDescription: string | null
+	lookingForAJobDescription: string
 	fullName: string
 	userId: number
 	photos: {
-		small: string | undefined
+		small: string | null
 		large: string | undefined
 	}
 }
@@ -59,13 +55,13 @@ let initialState: InitialProfileStateType = {
 		aboutMe: '',
 		contacts: {
 			facebook: '',
-			website: null,
+			website: '',
 			vk: '',
 			twitter: '',
 			instagram: '',
-			youtube: null,
+			youtube: '',
 			github: '',
-			mainLink: null,
+			mainLink: '',
 		},
 		lookingForAJob: true,
 		lookingForAJobDescription: '',

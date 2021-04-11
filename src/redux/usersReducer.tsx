@@ -10,30 +10,24 @@ export enum USERS_ACTIONS_TYPE {
 	TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 }
 
-export type followActionType = ReturnType<typeof follow>;
-export type unfollowActionType = ReturnType<typeof unfollow>;
-export type setUsersActionType = ReturnType<typeof setUsers>;
-export type setCurrentPageActionType = ReturnType<typeof setCurrentPage>;
-export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>;
-export type toggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>;
-
-export type usersActionsTypes = toggleIsFetchingActionType | setTotalUsersCountActionType | followActionType | unfollowActionType | setUsersActionType | setCurrentPageActionType;
+export type usersActionsTypes = ReturnType<typeof follow>
+	| ReturnType<typeof unfollow>
+	| ReturnType<typeof setUsers>
+	| ReturnType<typeof setCurrentPage>
+	| ReturnType<typeof setTotalUsersCount>
+	| ReturnType<typeof toggleIsFetching>
 
 
 export type userType = {
-	id: string,
-	photoUrl: string
-	followed: boolean,
-	name: string,
-	status: string,
-	location: {
-		city: string
-		country: string
+	'name': string
+	'id': string
+	'uniqueUrlName': null | string
+	'photos': {
+		'small': null | string
+		'large': null | string
 	},
-	photos: {
-		small: undefined | string,
-		large: undefined | string
-	},
+	'status': null | string
+	'followed': boolean
 }
 export type InitialProfileStateType = {
 	users: userType[],
@@ -45,7 +39,7 @@ export type InitialProfileStateType = {
 
 
 let initialState: InitialProfileStateType = {
-	users: [],
+	users: [] as userType[],
 	pageSize: 5,
 	totalUsersCount: 0,
 	currentPage: 1,

@@ -7,10 +7,7 @@ export enum NEWS_ACTIONS_TYPE {
 
 }
 
-export type AddNewsActionType = ReturnType<typeof addNewsActionCreator>
-export type updateTextNewsActionType = ReturnType<typeof updateTextNewsActionCreator>
-
-export type newsActionsTypes = AddNewsActionType | updateTextNewsActionType;
+export type newsActionsTypes = ReturnType<typeof addNewsActionCreator> | ReturnType<typeof updateTextNewsActionCreator>;
 
 
 export type NewsType = {
