@@ -1,7 +1,4 @@
 import { AddMessageActionType, UpdateNewTextMessageActionType } from "./dialogsReducer";
-import { AddNewsActionType, updateTextNewsActionCreator } from "./newsReducer";
-import { AddPostActionType, UpdateNewPostTextActionType } from "./profileReducer";
-
 
 
 
