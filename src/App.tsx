@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import { Route } from 'react-router-dom';
 import { DialogsContainer2 } from './components/Dialogs/DialogsContainer';
 import NewsContainer from './components/News/NewsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import { ConnectWithUrlDataContainerComponent } from './components/Profile/ProfileInfo/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 
 
@@ -15,7 +14,7 @@ function App() {
 
   return (
     <div className='app-wrapper' >
-      <Header />
+      <HeaderContainer />
       <Navbar />
       <div className='app-wrapper-content' >
         <Route path='/profile/:userId?' render={() => <ConnectWithUrlDataContainerComponent />} />
