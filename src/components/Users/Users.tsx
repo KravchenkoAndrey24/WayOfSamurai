@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { followUser, unfollowUser } from '../../api/api';
 import UserPhoto from '../../assets/images/user-male.png'
 import { userType } from '../../redux/usersReducer';
 import s from './Users.module.css';
@@ -10,9 +11,10 @@ export type UsersType = {
 	pageSize: number
 	currentPage: number
 	users: userType[]
+	followingInProgress: string[]
 	onPageChanged: (pageNumber: number) => void
-	follow: (userId: string) => void
-	unfollow: (userId: string) => void
+	followThunk: (userId: string) => void
+	unfollowThunk: (userId: string) => void
 }
 
 export const Users = (props: UsersType) => {
@@ -46,43 +48,11 @@ export const Users = (props: UsersType) => {
 						</div>
 						<div>
 							{item.followed
-								? <button onClick={() => {
-
-									props.unfollow(item.id)
-
-									axios
-										.delete(`https://social-network.samuraijs.com/api/1.0/follow/${item.id}`, {
-											withCredentials: true,
-											headers: {
-												'API-KEY': '2d65fe0a-1514-46af-a3fa-b8e3058ff155'
-											}
-										})
-										.then((response) => {
-											if (response.data.resultCode === 0) {
-												props.unfollow(item.id)
-											}
-										})
-
-
+								? <button disabled={props.followingInProgress.some(id => id === item.id)} onClick={() => {
+									props.unfollowThunk(item.id)
 								}}>Unfollow</button>
-								: <button onClick={() => {
-									props.follow(item.id)
-
-									axios
-										.post(`https://social-network.samuraijs.com/api/1.0/follow/${item.id}`, null, {
-											withCredentials: true,
-											headers: {
-												'API-KEY': '2d65fe0a-1514-46af-a3fa-b8e3058ff155'
-											}
-										})
-										.then((response) => {
-											if (response.data.resultCode === 0) {
-												props.follow(item.id)
-											}
-										})
-
-
-
+								: <button disabled={props.followingInProgress.some(id => id === item.id)} onClick={() => {
+									props.followThunk(item.id)
 								}}>Follow</button>}
 						</div>
 					</span>

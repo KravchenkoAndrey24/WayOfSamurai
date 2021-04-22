@@ -6,6 +6,7 @@ import Header from './Header';
 import s from './Header.module.css';
 import { setAuthUserData } from './../../redux/authReduces';
 import { AppStateType } from '../../redux/redux-store';
+import { authMe } from '../../api/api';
 
 type responseTypeItem = {
 	data: {
@@ -26,16 +27,10 @@ type responseType = {
 class HeaderContainer extends React.Component<headerContainerType> {
 
 	componentDidMount() {
-		axios
-			.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-				withCredentials: true
-			})
-			.then((response: responseType) => {
-				console.log(this.props);
-
-				console.log(response);
-				if (response.data.resultCode === 0) {
-					let { id, email, login } = response.data.data;
+		authMe()
+			.then((data: responseTypeItem) => {
+				if (data.resultCode === 0) {
+					let { id, email, login } = data.data;
 					this.props.setAuthUserData(id, email, login)
 				}
 
