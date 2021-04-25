@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom';
 import { DialogsContainer2 } from './components/Dialogs/DialogsContainer';
 import NewsContainer from './components/News/NewsContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import { ConnectWithUrlDataContainerComponent } from './components/Profile/ProfileInfo/ProfileContainer';
+import { ConnectWithUrlDataContainerComponent } from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import axios from 'axios';
 

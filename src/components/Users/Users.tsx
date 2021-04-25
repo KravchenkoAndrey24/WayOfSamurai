@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { followUser, unfollowUser } from '../../api/api';
 import UserPhoto from '../../assets/images/user-male.png'
 import { userType } from '../../redux/usersReducer';
 import s from './Users.module.css';

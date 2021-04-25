@@ -2,10 +2,9 @@ import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/redux-store';
-import { follow, followThunk, getUsers, toggleIsFollowingProgress, setCurrentPage, unfollow, userType, unfollowThunk } from '../../redux/usersReducer';
+import { followThunk, getUsers, toggleIsFollowingProgress, setCurrentPage, userType, unfollowThunk } from '../../redux/usersReducer';
 import { Users } from './Users';
 import { Preloader } from '../common/preloader/Preloader';
-import { getUsersAPI } from '../../api/api';
 
 
 export type ResponseItemType = {
@@ -68,12 +67,7 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-	follow: (userId: string) => void
-	unfollow: (userId: string) => void
-	// setUsers: (users: userType[]) => void
 	setCurrentPage: (currentPage: number) => void
-	// setTotalUsersCount: (totalCount: number) => void
-	// toggleIsFetching: (isFetching: boolean) => void
 	toggleIsFollowingProgress: (isFollowing: boolean, userId: string) => void
 	getUsers: (currentPage: number, pageSize: number) => void
 	followThunk: (userId: string) => void
@@ -94,43 +88,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 		followingInProgress: state.usersPage.followingInProgress
 	}
 }
-/* const mapDispatchToProps2: mapDispatchToPropsType = {
-	follow,
-	unfollow,
-	setUsers,
-	setCurrentPage,
-	setTotalUsersCount,
-	toggleIsFetching,
-} */
-
-/* let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-	return {
-		follow: (userId: string) => {
-			dispatch(followAC(userId))
-		},
-		unfollow: (userId: string) => {
-			dispatch(unfollowAC(userId))
-		},
-		setUsers: (users: userType[]) => {
-			dispatch(setUsersAC(users))
-		},
-		setCurrentPage: (currentPage: number) => {
-			dispatch(setCurrentPageAC(currentPage))
-		},
-		setTotalUsersCount: (totalCount: number) => {
-			dispatch(setTotalUsersCountAC(totalCount))
-		},
-		setIsFetching: (isFetching: boolean) => {
-			dispatch(toggleIsFetchingAC(isFetching))
-		}
-	}
-}
- */
-
 
 export default connect(mapStateToProps, {
-	follow,
-	unfollow,
 	setCurrentPage,
 	toggleIsFollowingProgress,
 	getUsers,

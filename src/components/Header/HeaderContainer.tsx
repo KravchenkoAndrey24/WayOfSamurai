@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Header from './Header';
 import s from './Header.module.css';
-import { setAuthUserData } from './../../redux/authReduces';
+import { getAuthUser } from '../../redux/authReducer';
 import { AppStateType } from '../../redux/redux-store';
-import { authMe } from '../../api/api';
 
-type responseTypeItem = {
+export type responseTypeItem = {
 	data: {
 		id: number
 		login: string
@@ -27,14 +26,7 @@ type responseType = {
 class HeaderContainer extends React.Component<headerContainerType> {
 
 	componentDidMount() {
-		authMe()
-			.then((data: responseTypeItem) => {
-				if (data.resultCode === 0) {
-					let { id, email, login } = data.data;
-					this.props.setAuthUserData(id, email, login)
-				}
-
-			})
+		this.props.getAuthUser();
 	}
 
 	render() {
@@ -52,7 +44,7 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-	setAuthUserData: (userId: Number, email: string, login: string) => void
+	getAuthUser: () => void
 }
 export type headerContainerType = mapStateToPropsType & mapDispatchToPropsType;
 
@@ -67,4 +59,4 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
 
 
-export default connect(mapStateToProps, { setAuthUserData })(HeaderContainer);
+export default connect(mapStateToProps, { getAuthUser })(HeaderContainer);
