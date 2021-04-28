@@ -105,8 +105,10 @@ export const setUserProfile = (profile: profileType) => ({ type: PROFILE_ACTIONS
 export const getUserProfile = (userId: string) => {
 	return (dispatch: Dispatch) => {
 		authAPI.getProfile(userId)
-			.then(response => {
-				dispatch(setUserProfile(response.data));
+			.then(data => {
+				console.log(data);
+
+				dispatch(setUserProfile(data));
 			})
 	}
 }

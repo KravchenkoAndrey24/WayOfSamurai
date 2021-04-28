@@ -1,5 +1,6 @@
 // import { ActionsTypes } from "./redux-store";
 
+import { Dispatch } from "redux"
 import { usersAPI } from "../api/api"
 import { ServerData } from "../components/Users/UsersContainer"
 
@@ -113,11 +114,11 @@ export const toggleIsFollowingProgress = (isFollowing: boolean, userId: string) 
 
 export const getUsers = (currentPage: number, pageSize: number) => {
 	return (
-		(dispatch: any) => {
+		(dispatch: Dispatch) => {
 			dispatch(toggleIsFetching(true));
 			dispatch(setUsers([]));
 			usersAPI.getUsers(currentPage, pageSize)
-				.then((data: ServerData) => {
+				.then((data) => {
 					dispatch(toggleIsFetching(false));
 					dispatch(setUsers(data.items));
 					dispatch(setTotalUsersCount(data.totalCount));
@@ -128,7 +129,7 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 
 export const followThunk = (userId: string) => {
 	return (
-		(dispatch: any) => {
+		(dispatch: Dispatch) => {
 			dispatch(toggleIsFollowingProgress(true, userId));
 			usersAPI.followUser(userId)
 				.then((data) => {
@@ -144,7 +145,7 @@ export const followThunk = (userId: string) => {
 
 export const unfollowThunk = (userId: string) => {
 	return (
-		(dispatch: any) => {
+		(dispatch: Dispatch) => {
 			dispatch(toggleIsFollowingProgress(true, userId));
 			usersAPI.unfollowUser(userId)
 				.then((data) => {
