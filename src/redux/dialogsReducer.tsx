@@ -5,15 +5,11 @@ export enum DIALOGS_ACTIONS_TYPE {
 	UPDATE_NEW_TEXT_MESSAGE = 'UPDATE-NEW-TEXT-MESSAGE'
 }
 
-export type AddMessageActionType = {
-	type: DIALOGS_ACTIONS_TYPE.ADD_MESSAGE
-}
-export type UpdateNewTextMessageActionType = {
-	type: DIALOGS_ACTIONS_TYPE.UPDATE_NEW_TEXT_MESSAGE
-	newMessage: string
-}
 
-export type dialogsActionsTypes = AddMessageActionType | UpdateNewTextMessageActionType
+export type dialogsActionsTypes =
+	ReturnType<typeof addMessageActionCreator>
+	| ReturnType<typeof updateNewTextMessageActionCreator>
+
 
 export type DialogsType = {
 	id: number
@@ -24,20 +20,14 @@ export type MessageType = {
 	message: string
 }
 
-export type InitialDialogsStateType = {
-	messages: MessageType[]
-	dialogs: DialogsType[]
-	newTextMessage: string
-}
-
-let initialState: InitialDialogsStateType = {
+let initialState = {
 	messages: [
 		{ id: 1, message: 'Hi' },
 		{ id: 2, message: 'How is ypur it?' },
 		{ id: 3, message: 'Yo' },
 		{ id: 4, message: 'Yo' },
 		{ id: 5, message: 'Yo' },
-	],
+	] as MessageType[],
 	dialogs: [
 		{ id: 1, name: 'Dimych' },
 		{ id: 2, name: 'Andrey' },
@@ -45,9 +35,10 @@ let initialState: InitialDialogsStateType = {
 		{ id: 4, name: 'Sasha' },
 		{ id: 5, name: 'Viktor' },
 		{ id: 6, name: 'Valera' },
-	],
+	] as DialogsType[],
 	newTextMessage: '',
 }
+export type InitialDialogsStateType = typeof initialState;
 
 const dialogsReducer = (state: InitialDialogsStateType = initialState, action: dialogsActionsTypes): InitialDialogsStateType => {
 	switch (action.type) {
@@ -66,11 +57,11 @@ const dialogsReducer = (state: InitialDialogsStateType = initialState, action: d
 
 
 
-export const addMessageActionCreator = (): AddMessageActionType => ({
+export const addMessageActionCreator = () => ({
 	type: DIALOGS_ACTIONS_TYPE.ADD_MESSAGE
 }) as const
 
-export const updateNewTextMessageActionCreator = (newMessage: string): UpdateNewTextMessageActionType => ({
+export const updateNewTextMessageActionCreator = (newMessage: string) => ({
 	type: DIALOGS_ACTIONS_TYPE.UPDATE_NEW_TEXT_MESSAGE, newMessage
 }) as const
 

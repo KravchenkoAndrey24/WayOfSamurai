@@ -8,14 +8,14 @@ import thunkMiddleware from 'redux-thunk';
 
 export type ActionsTypes = profileActionsTypes | dialogsActionsTypes | newsActionsTypes | usersActionsTypes;
 
-export type StoreType = {
+/* export type StoreType = {
 	_state: AppStateType
 	getState: () => AppStateType
 	_callSubscriber: () => void
 	subscribe: (callback: () => void) => void
 	dispatch: (action: ActionsTypes) => void
 }
-
+ */
 
 let rootReducers = combineReducers({
 	profilePage: profileReducer,

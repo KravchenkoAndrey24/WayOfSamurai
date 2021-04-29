@@ -7,14 +7,10 @@ import NewsContainer from './components/News/NewsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import { ConnectWithUrlDataContainerComponent } from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import axios from 'axios';
 
 
 
 function App() {
-
-  axios.get('https://www.google.com.ua/?hl=ru')
-    .then(response => console.log(response.data))
 
   return (
     <div className='app-wrapper' >

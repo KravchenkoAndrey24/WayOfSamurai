@@ -37,21 +37,15 @@ export type profileType = {
 	}
 }
 
-export type InitialProfileStateType = {
-	posts: PostType[]
-	newPostText: string
-	profile: profileType
-
-}
 
 
-let initialState: InitialProfileStateType = {
+let initialState = {
 	posts: [
 		{ id: 1, message: 'Hi, how are you?', likesCount: 23 },
 		{ id: 2, message: "it's my first post", likesCount: 32 },
 		{ id: 3, message: "it's my second post", likesCount: 2 },
 		{ id: 4, message: "it's my third post", likesCount: 3 },
-	],
+	] as PostType[],
 	newPostText: 'it-kamasutra.com',
 	profile: {
 		aboutMe: '',
@@ -73,8 +67,9 @@ let initialState: InitialProfileStateType = {
 			small: '',
 			large: ''
 		}
-	}
+	} as profileType
 }
+export type InitialProfileStateType = typeof initialState;
 
 const profileReducer = (state: InitialProfileStateType = initialState, action: profileActionsTypes): InitialProfileStateType => {
 	switch (action.type) {
@@ -102,15 +97,11 @@ export const updateNewPostTextActionCreator = (text: string) => ({
 }) as const
 export const setUserProfile = (profile: profileType) => ({ type: PROFILE_ACTIONS_TYPE.SET_USER_PROFILE, profile }) as const
 
-export const getUserProfile = (userId: string) => {
-	return (dispatch: Dispatch) => {
-		authAPI.getProfile(userId)
-			.then(data => {
-				console.log(data);
-
-				dispatch(setUserProfile(data));
-			})
-	}
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+	authAPI.getProfile(userId)
+		.then(data => {
+			dispatch(setUserProfile(data));
+		})
 }
 
 

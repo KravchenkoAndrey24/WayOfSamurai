@@ -1,5 +1,5 @@
+import { Dispatch } from "redux"
 import { authAPI } from "../api/api"
-import { responseTypeItem } from "../components/Header/HeaderContainer"
 
 export enum AUTH_ACTIONS_TYPE {
 	SET_USER_DATA = 'SET_USER_DATA',
@@ -9,20 +9,14 @@ export type authActionsTypes = ReturnType<typeof setAuthUserData>
 
 
 
-export type InitialAuthStateType = {
-	id: Number | null
-	email: string | null
-	login: string | null
-	isAuth: boolean
-}
-
-
-let initialState: InitialAuthStateType = {
-	id: null,
-	email: null,
-	login: null,
+let initialState = {
+	id: null as number | null,
+	email: null as string | null,
+	login: null as string | null,
 	isAuth: false
 }
+
+export type InitialAuthStateType = typeof initialState;
 
 const authReducer = (state: InitialAuthStateType = initialState, action: authActionsTypes): InitialAuthStateType => {
 	switch (action.type) {
@@ -33,14 +27,16 @@ const authReducer = (state: InitialAuthStateType = initialState, action: authAct
 				isAuth: true
 			}
 		}
-
 		default:
 			return state
 	}
 }
 
-export const setAuthUserData = (userId: Number, email: string, login: string) => ({ type: AUTH_ACTIONS_TYPE.SET_USER_DATA, data: { userId, email, login } }) as const
-export const getAuthUser = () => (dispatch: any) => {
+export const setAuthUserData = (userId: number, email: string, login: string) => ({
+	type: AUTH_ACTIONS_TYPE.SET_USER_DATA,
+	data: { userId, email, login }
+}) as const
+export const getAuthUser = () => (dispatch: Dispatch) => {
 	authAPI.authMe()
 		.then((data) => {
 			if (data.resultCode === 0) {
