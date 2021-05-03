@@ -7,9 +7,10 @@ import { ProfileContainerType } from './ProfileContainer';
 
 
 function Profile(props: ProfileContainerType) {
+
 	return (
 		<div>
-			<ProfileInfo profile={props.profile} />
+			<ProfileInfo updateUserStatusThunk={props.updateUserStatusThunk} profile={props.profile} status={props.status} />
 			<MyPostsContainer />
 		</div >
 	)

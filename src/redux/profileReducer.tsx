@@ -1,13 +1,14 @@
 import { Dispatch } from "redux";
-import { authAPI } from "../api/api";
+import { authAPI, profileAPI } from "../api/api";
 
 export enum PROFILE_ACTIONS_TYPE {
 	ADD_POST = 'ADD-POST',
 	UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
-	SET_USER_PROFILE = "SET_USER_PROFILE"
+	SET_USER_PROFILE = "SET_USER_PROFILE",
+	SET_STATUS = 'SET_STATUS'
 }
 
-export type profileActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator> | ReturnType<typeof setUserProfile>;
+export type profileActionsTypes = ReturnType<typeof setStatusUser> | ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator> | ReturnType<typeof setUserProfile>;
 
 export type PostType = {
 	id: number
@@ -67,7 +68,8 @@ let initialState = {
 			small: '',
 			large: ''
 		}
-	} as profileType
+	} as profileType,
+	status: ''
 }
 export type InitialProfileStateType = typeof initialState;
 
@@ -85,6 +87,8 @@ const profileReducer = (state: InitialProfileStateType = initialState, action: p
 			return { ...state, newPostText: action.newText }
 		case PROFILE_ACTIONS_TYPE.SET_USER_PROFILE:
 			return { ...state, profile: { ...action.profile } }
+		case PROFILE_ACTIONS_TYPE.SET_STATUS:
+			return { ...state, status: action.status }
 		default:
 			return state
 	}
@@ -96,6 +100,7 @@ export const updateNewPostTextActionCreator = (text: string) => ({
 	newText: text
 }) as const
 export const setUserProfile = (profile: profileType) => ({ type: PROFILE_ACTIONS_TYPE.SET_USER_PROFILE, profile }) as const
+export const setStatusUser = (status: string) => ({ type: PROFILE_ACTIONS_TYPE.SET_STATUS, status }) as const
 
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
 	authAPI.getProfile(userId)
@@ -104,6 +109,22 @@ export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
 		})
 }
 
+export const getUserStatusThunk = (userId: string) => (dispatch: Dispatch) => {
+	profileAPI.getUserStatus(userId)
+		.then(data => {
+			dispatch(setStatusUser(data.data))
+			console.log(initialState.status);
 
+		})
+}
+
+export const updateUserStatusThunk = (status: string) => (dispatch: Dispatch) => {
+	profileAPI.updateUserStatus(status)
+		.then(data => {
+			if (data.resultCode === 0) {
+				dispatch(setStatusUser(status))
+			}
+		})
+}
 
 export default profileReducer;

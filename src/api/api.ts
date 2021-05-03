@@ -76,10 +76,29 @@ export const authAPI = {
 			.then(response => response.data)
 	},
 	getProfile: (userId: string) => {
+		return profileAPI.getProfile(userId);
+	}
+}
+
+type updateUserStatusType = {
+	resultCode: number
+	messages: string[],
+	data: {},
+	fieldsErrors: string[]
+}
+
+export const profileAPI = {
+	getProfile: (userId: string) => {
 		return instance
 			.get<getProfileType>(`profile/` + userId)
 			.then(res => res.data)
-
+	},
+	getUserStatus: (userId: string) => {
+		return instance
+			.get<string>(`profile/status/` + userId)
+	},
+	updateUserStatus: (status: string) => {
+		return instance.put<updateUserStatusType>('profile/status/', { status: status })
+			.then(data => data.data);
 	}
-
 }

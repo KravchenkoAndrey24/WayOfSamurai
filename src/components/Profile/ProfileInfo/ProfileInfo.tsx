@@ -2,9 +2,12 @@ import React from 'react';
 import { profileType } from '../../../redux/profileReducer';
 import { Preloader } from '../../common/preloader/Preloader';
 import s from './ProfileInfo.module.css';
+import ProfileStatus from './ProfileStatus';
 
 type ProfileInfoType = {
 	profile: profileType
+	status: string
+	updateUserStatusThunk: (status: string) => void
 }
 
 function ProfileInfo(props: ProfileInfoType) {
@@ -16,12 +19,12 @@ function ProfileInfo(props: ProfileInfoType) {
 
 	return (
 		<div>
-			<div>
+			{/* <div>
 				<img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg" alt="" />
-			</div>
+			</div> */}
 			<div className={s.descriptionBlock}>
 				<img src={props.profile.photos.large} alt="" />
-				ava + description
+				<ProfileStatus status={props.status} updateUserStatusThunk={props.updateUserStatusThunk} />
 			</div>
 		</div>
 	)
