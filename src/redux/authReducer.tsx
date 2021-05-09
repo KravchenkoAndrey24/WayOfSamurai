@@ -36,12 +36,15 @@ export const setAuthUserData = (userId: number, email: string, login: string) =>
 	type: AUTH_ACTIONS_TYPE.SET_USER_DATA,
 	data: { userId, email, login }
 }) as const
+
 export const getAuthUser = () => (dispatch: Dispatch) => {
 	authAPI.authMe()
 		.then((data) => {
+
 			if (data.resultCode === 0) {
 				let { id, email, login } = data.data;
 				dispatch(setAuthUserData(id, email, login));
+
 			}
 
 		})

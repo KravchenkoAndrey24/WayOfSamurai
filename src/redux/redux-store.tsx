@@ -5,6 +5,7 @@ import newsReducer, { newsActionsTypes } from "./newsReducer";
 import profileReducer, { profileActionsTypes } from "./profileReducer";
 import usersReducer, { usersActionsTypes } from "./usersReducer";
 import thunkMiddleware from 'redux-thunk';
+import { reducer as formReducer } from 'redux-form'
 
 export type ActionsTypes = profileActionsTypes | dialogsActionsTypes | newsActionsTypes | usersActionsTypes;
 
@@ -23,6 +24,7 @@ let rootReducers = combineReducers({
 	newsPage: newsReducer,
 	usersPage: usersReducer,
 	auth: authReducer,
+	form: formReducer
 });
 
 

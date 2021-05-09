@@ -8,7 +8,6 @@ type ProfileStatusType = {
 
 class ProfileStatus extends React.Component<ProfileStatusType> {
 
-
 	state = {
 		editMode: false,
 		status: this.props.status
@@ -29,6 +28,15 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
 		this.setState({
 			status: e.currentTarget.value
 		})
+	}
+
+	componentDidUpdate(prevProps: ProfileStatusType, prevState: any) {
+		if (prevProps.status !== this.props.status) {
+			this.setState({
+				status: this.props.status
+			})
+		}
+
 	}
 
 	render() {

@@ -4,7 +4,7 @@ import Profile from './Profile';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/redux-store';
 import { getUserProfile, profileType, getUserStatusThunk, updateUserStatusThunk } from '../../redux/profileReducer';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import { WithAuthRedirect } from '../hoc/WithAuthRedirect';
 import { compose } from 'redux';
 
@@ -13,9 +13,7 @@ export type mapStateToPropsType = {
 	profile: profileType
 	status: string
 }
-export type mapStateToPropsTypeForRedirect = {
-	isAuth: boolean
-}
+
 export type mapDispatchToPropsType = {
 	getUserProfile: (userId: string) => void
 	getUserStatusThunk: (userId: string) => void
@@ -32,18 +30,18 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
 	componentDidMount() {
 		let userId = this.props.match.params.userId;
 		if (!userId) {
-			userId = '2';
+			userId = '16009';
 		}
+
 		this.props.getUserProfile(userId);
 		this.props.getUserStatusThunk(userId);
 	}
 
 	render() {
-
 		return (
 			<div>
 				<Profile {...this.props} updateUserStatusThunk={this.props.updateUserStatusThunk} profile={this.props.profile} />
-			</div >
+			</div>
 		)
 	}
 }

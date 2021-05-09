@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { InitialDialogsStateType } from '../../redux/dialogsReducer';
 import DialogItem from './DialogItem/DialogItem';
@@ -28,8 +28,11 @@ function Dialogs(props: DialogsPropsType) {
 		props.updateNewTextMessage(text);
 	}
 
-	if (!props.isAuth) return <Redirect to={'/login'} />
-
+	// if (!props.isAuth) return <Redirect to={'/login'} />
+	console.log(props.isAuth);
+	if (props.isAuth === false) {
+		return <Redirect to={'login'} />
+	}
 
 	return (
 		<div className={s.dialogs}>
