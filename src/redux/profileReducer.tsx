@@ -3,12 +3,11 @@ import { authAPI, profileAPI } from "../api/api";
 
 export enum PROFILE_ACTIONS_TYPE {
 	ADD_POST = 'ADD-POST',
-	UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
 	SET_USER_PROFILE = "SET_USER_PROFILE",
 	SET_STATUS = 'SET_STATUS'
 }
 
-export type profileActionsTypes = ReturnType<typeof setStatusUser> | ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator> | ReturnType<typeof setUserProfile>;
+export type profileActionsTypes = ReturnType<typeof setStatusUser> | ReturnType<typeof addPostActionCreator> | ReturnType<typeof setUserProfile>;
 
 export type PostType = {
 	id: number
@@ -47,7 +46,6 @@ let initialState = {
 		{ id: 3, message: "it's my second post", likesCount: 2 },
 		{ id: 4, message: "it's my third post", likesCount: 3 },
 	] as PostType[],
-	newPostText: 'it-kamasutra.com',
 	profile: {
 		aboutMe: '',
 		contacts: {
@@ -78,13 +76,10 @@ const profileReducer = (state: InitialProfileStateType = initialState, action: p
 		case PROFILE_ACTIONS_TYPE.ADD_POST:
 			let newPost: PostType = {
 				id: 5,
-				message: state.newPostText,
+				message: action.newPostText,
 				likesCount: 0,
 			};
-			return { ...state, posts: [...state.posts.map(item => ({ ...item })), newPost], newPostText: '' };
-
-		case PROFILE_ACTIONS_TYPE.UPDATE_NEW_POST_TEXT:
-			return { ...state, newPostText: action.newText }
+			return { ...state, posts: [...state.posts.map(item => ({ ...item })), newPost] };
 		case PROFILE_ACTIONS_TYPE.SET_USER_PROFILE:
 			return { ...state, profile: { ...action.profile } }
 		case PROFILE_ACTIONS_TYPE.SET_STATUS:
@@ -94,11 +89,7 @@ const profileReducer = (state: InitialProfileStateType = initialState, action: p
 	}
 }
 
-export const addPostActionCreator = () => ({ type: PROFILE_ACTIONS_TYPE.ADD_POST }) as const
-export const updateNewPostTextActionCreator = (text: string) => ({
-	type: PROFILE_ACTIONS_TYPE.UPDATE_NEW_POST_TEXT,
-	newText: text
-}) as const
+export const addPostActionCreator = (newPostText: string) => ({ type: PROFILE_ACTIONS_TYPE.ADD_POST, newPostText }) as const
 export const setUserProfile = (profile: profileType) => ({ type: PROFILE_ACTIONS_TYPE.SET_USER_PROFILE, profile }) as const
 export const setStatusUser = (status: string) => ({ type: PROFILE_ACTIONS_TYPE.SET_STATUS, status }) as const
 

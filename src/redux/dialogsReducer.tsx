@@ -8,7 +8,6 @@ export enum DIALOGS_ACTIONS_TYPE {
 
 export type dialogsActionsTypes =
 	ReturnType<typeof addMessageActionCreator>
-	| ReturnType<typeof updateNewTextMessageActionCreator>
 
 
 export type DialogsType = {
@@ -36,7 +35,6 @@ let initialState = {
 		{ id: 5, name: 'Viktor' },
 		{ id: 6, name: 'Valera' },
 	] as DialogsType[],
-	newTextMessage: '',
 }
 export type InitialDialogsStateType = typeof initialState;
 
@@ -45,11 +43,9 @@ const dialogsReducer = (state: InitialDialogsStateType = initialState, action: d
 		case DIALOGS_ACTIONS_TYPE.ADD_MESSAGE:
 			let newMessage: MessageType = {
 				id: 6,
-				message: state.newTextMessage,
+				message: action.messageText,
 			};
-			return { ...state, messages: [...state.messages.map(item => ({ ...item })), newMessage], newTextMessage: '' }
-		case DIALOGS_ACTIONS_TYPE.UPDATE_NEW_TEXT_MESSAGE:
-			return { ...state, newTextMessage: action.newMessage }
+			return { ...state, messages: [...state.messages.map(item => ({ ...item })), newMessage] }
 		default:
 			return state
 	}
@@ -57,12 +53,9 @@ const dialogsReducer = (state: InitialDialogsStateType = initialState, action: d
 
 
 
-export const addMessageActionCreator = () => ({
-	type: DIALOGS_ACTIONS_TYPE.ADD_MESSAGE
+export const addMessageActionCreator = (messageText: string) => ({
+	type: DIALOGS_ACTIONS_TYPE.ADD_MESSAGE, messageText
 }) as const
 
-export const updateNewTextMessageActionCreator = (newMessage: string) => ({
-	type: DIALOGS_ACTIONS_TYPE.UPDATE_NEW_TEXT_MESSAGE, newMessage
-}) as const
 
 export default dialogsReducer;

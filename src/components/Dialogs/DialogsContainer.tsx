@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
-import { addMessageActionCreator, InitialDialogsStateType, updateNewTextMessageActionCreator } from '../../redux/dialogsReducer';
+import { addMessageActionCreator, InitialDialogsStateType } from '../../redux/dialogsReducer';
 import { AppStateType } from '../../redux/redux-store';
-import { WithAuthRedirect } from '../hoc/WithAuthRedirect';
 import Dialogs from './Dialogs';
 
 
@@ -15,16 +14,14 @@ export const DialogsContainer: React.FC = () => {
 	const dialogsPage = useSelector<AppStateType, InitialDialogsStateType>((state) => state.messagesPage);
 	const isAuth = useSelector<AppStateType, boolean>((state) => state.auth.isAuth);
 
-	const addMessage = () => {
-		dispatch(addMessageActionCreator())
+	const addMessage = (messageText: string) => {
+		dispatch(addMessageActionCreator(messageText))
 	}
 
-	const updateNewTextMessage = (text: string) => {
-		dispatch(updateNewTextMessageActionCreator(text))
-	}
+
 
 	return (
-		<Dialogs dialogsPage={dialogsPage} isAuth={isAuth} addMessage={addMessage} updateNewTextMessage={updateNewTextMessage} />
+		<Dialogs dialogsPage={dialogsPage} isAuth={isAuth} addMessage={addMessage} />
 	)
 }
 
