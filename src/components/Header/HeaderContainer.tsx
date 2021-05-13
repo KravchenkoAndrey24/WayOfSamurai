@@ -1,26 +1,11 @@
 import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import Header from './Header';
 import s from './Header.module.css';
-import { getAuthUser } from '../../redux/authReducer';
+import { getAuthUser, logoutTC } from '../../redux/authReducer';
 import { AppStateType } from '../../redux/redux-store';
 
-export type responseTypeItem = {
-	data: {
-		id: number
-		login: string
-		email: string
-	}
-	messages: string[]
-	fieldsErrors: string[]
-	resultCode: number
-}
-
-type responseType = {
-	data: responseTypeItem
-}
 
 
 class HeaderContainer extends React.Component<headerContainerType> {
@@ -37,7 +22,7 @@ class HeaderContainer extends React.Component<headerContainerType> {
 }
 
 type mapStateToPropsType = {
-	id: Number | null
+	id: number | null
 	email: string | null
 	login: string | null
 	isAuth: boolean
@@ -45,6 +30,7 @@ type mapStateToPropsType = {
 
 type mapDispatchToPropsType = {
 	getAuthUser: () => void
+	logoutTC: () => void
 }
 export type headerContainerType = mapStateToPropsType & mapDispatchToPropsType;
 
@@ -59,4 +45,4 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
 
 
-export default connect(mapStateToProps, { getAuthUser })(HeaderContainer);
+export default connect(mapStateToProps, { getAuthUser, logoutTC })(HeaderContainer);

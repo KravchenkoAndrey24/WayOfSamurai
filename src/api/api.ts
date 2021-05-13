@@ -75,9 +75,14 @@ export const authAPI = {
 			.get<authMeType>(`auth/me`)
 			.then(response => response.data)
 	},
-	getProfile: (userId: string) => {
-		return profileAPI.getProfile(userId);
-	}
+	login: (email: string, password: string, rememberMe: boolean = false) => {
+		return instance
+			.post(`auth/login`, { email, password, rememberMe })
+	},
+	logout: () => {
+		return instance
+			.delete(`auth/login`)
+	},
 }
 
 type updateUserStatusType = {
@@ -90,7 +95,7 @@ type updateUserStatusType = {
 export const profileAPI = {
 	getProfile: (userId: string) => {
 		return instance
-			.get<getProfileType>(`profile/` + userId)
+			.get<getProfileType>(`profile/${userId}`)
 			.then(res => res.data)
 	},
 	getUserStatus: (userId: string) => {
@@ -102,3 +107,4 @@ export const profileAPI = {
 			.then(data => data.data);
 	}
 }
+

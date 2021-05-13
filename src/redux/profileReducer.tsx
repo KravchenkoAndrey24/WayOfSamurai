@@ -94,8 +94,10 @@ export const setUserProfile = (profile: profileType) => ({ type: PROFILE_ACTIONS
 export const setStatusUser = (status: string) => ({ type: PROFILE_ACTIONS_TYPE.SET_STATUS, status }) as const
 
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-	authAPI.getProfile(userId)
+
+	profileAPI.getProfile(userId)
 		.then(data => {
+
 			dispatch(setUserProfile(data));
 		})
 }
@@ -104,8 +106,6 @@ export const getUserStatusThunk = (userId: string) => (dispatch: Dispatch) => {
 	profileAPI.getUserStatus(userId)
 		.then(data => {
 			dispatch(setStatusUser(data.data))
-			console.log(initialState.status);
-
 		})
 }
 

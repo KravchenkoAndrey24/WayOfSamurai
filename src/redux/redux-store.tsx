@@ -1,13 +1,13 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import authReducer from "./authReducer";
+import authReducer, { authActionsTypes } from "./authReducer";
 import dialogsReducer, { dialogsActionsTypes } from "./dialogsReducer";
 import newsReducer, { newsActionsTypes } from "./newsReducer";
 import profileReducer, { profileActionsTypes } from "./profileReducer";
 import usersReducer, { usersActionsTypes } from "./usersReducer";
-import thunkMiddleware from 'redux-thunk';
+import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form'
 
-export type ActionsTypes = profileActionsTypes | dialogsActionsTypes | newsActionsTypes | usersActionsTypes;
+export type ActionsTypes = profileActionsTypes | dialogsActionsTypes | newsActionsTypes | usersActionsTypes | authActionsTypes;
 
 /* export type StoreType = {
 	_state: AppStateType
@@ -32,4 +32,9 @@ export type AppStateType = ReturnType<typeof rootReducers>;
 
 let store = createStore(rootReducers, applyMiddleware(thunkMiddleware));
 
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
+
 export default store;
+
+let storetest = window;
