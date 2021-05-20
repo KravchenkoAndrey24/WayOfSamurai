@@ -5,6 +5,7 @@ import { AppStateType } from '../../redux/redux-store';
 import { followThunk, getUsers, toggleIsFollowingProgress, setCurrentPage, userType, unfollowThunk } from '../../redux/usersReducer';
 import { Users } from './Users';
 import { Preloader } from '../common/preloader/Preloader';
+import { getAllUsers, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getСurrentPage } from '../../redux/usersSelectors';
 
 
 export type ResponseItemType = {
@@ -23,9 +24,6 @@ export type ServerData = {
 	'items': ResponseItemType[]
 	'totalCount': number
 	'error': null | string
-}
-type ResponseType = {
-	data: ServerData
 }
 
 
@@ -78,7 +76,7 @@ export type usersPropsType = mapStateToPropsType & mapDispatchToPropsType;
 
 
 
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+/* const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 	return {
 		users: state.usersPage.users,
 		pageSize: state.usersPage.pageSize,
@@ -87,8 +85,17 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 		isFetching: state.usersPage.isFetching,
 		followingInProgress: state.usersPage.followingInProgress
 	}
+} */
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+	return {
+		users: getAllUsers(state),
+		pageSize: getPageSize(state),
+		totalUsersCount: getTotalUsersCount(state),
+		currentPage: getСurrentPage(state),
+		isFetching: getIsFetching(state),
+		followingInProgress: getFollowingInProgress(state)
+	}
 }
-
 export default connect(mapStateToProps, {
 	setCurrentPage,
 	toggleIsFollowingProgress,

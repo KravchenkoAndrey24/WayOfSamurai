@@ -6,8 +6,9 @@ import profileReducer, { profileActionsTypes } from "./profileReducer";
 import usersReducer, { usersActionsTypes } from "./usersReducer";
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form'
+import appReducer, { appActionsTypes } from "./appReducer";
 
-export type ActionsTypes = profileActionsTypes | dialogsActionsTypes | newsActionsTypes | usersActionsTypes | authActionsTypes;
+export type ActionsTypes = profileActionsTypes | dialogsActionsTypes | newsActionsTypes | usersActionsTypes | authActionsTypes | appActionsTypes;
 
 /* export type StoreType = {
 	_state: AppStateType
@@ -24,7 +25,8 @@ let rootReducers = combineReducers({
 	newsPage: newsReducer,
 	usersPage: usersReducer,
 	auth: authReducer,
-	form: formReducer
+	form: formReducer,
+	app: appReducer
 });
 
 
