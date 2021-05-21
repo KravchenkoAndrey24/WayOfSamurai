@@ -5,7 +5,7 @@ import { AppStateType } from '../../redux/redux-store';
 import { followThunk, getUsers, toggleIsFollowingProgress, setCurrentPage, userType, unfollowThunk } from '../../redux/usersReducer';
 import { Users } from './Users';
 import { Preloader } from '../common/preloader/Preloader';
-import { getAllUsers, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getСurrentPage } from '../../redux/usersSelectors';
+import { getUsersSuperSelector, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getСurrentPage } from '../../redux/usersSelectors';
 
 
 export type ResponseItemType = {
@@ -88,7 +88,8 @@ export type usersPropsType = mapStateToPropsType & mapDispatchToPropsType;
 } */
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 	return {
-		users: getAllUsers(state),
+		// users: getAllUsers(state),
+		users: getUsersSuperSelector(state),
 		pageSize: getPageSize(state),
 		totalUsersCount: getTotalUsersCount(state),
 		currentPage: getСurrentPage(state),
