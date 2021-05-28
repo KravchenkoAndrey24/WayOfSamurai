@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { maxLengthCreator, required } from '../../../utils/validators/validators';
@@ -28,7 +29,10 @@ const PostReduxForm = reduxForm({
 
 
 
-function MyPosts(props: MyPostsPropsType) {
+const MyPosts = React.memo((props: MyPostsPropsType) => {
+
+
+	console.log('render MyPosts');
 
 	let postsElements = props.profilePage.posts.map(item => <Post key={item.id} message={item.message} id={item.id} likesCount={item.likesCount} />)
 
@@ -46,8 +50,7 @@ function MyPosts(props: MyPostsPropsType) {
 			</div>
 		</div>
 	)
-}
-
+})
 
 
 

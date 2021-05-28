@@ -4,10 +4,15 @@ import { authAPI, profileAPI } from "../api/api";
 export enum PROFILE_ACTIONS_TYPE {
 	ADD_POST = 'ADD-POST',
 	SET_USER_PROFILE = "SET_USER_PROFILE",
-	SET_STATUS = 'SET_STATUS'
+	SET_STATUS = 'SET_STATUS',
+	DELETE_POST = 'DELETE_POST'
 }
 
-export type profileActionsTypes = ReturnType<typeof setStatusUser> | ReturnType<typeof addPostActionCreator> | ReturnType<typeof setUserProfile>;
+export type profileActionsTypes =
+	ReturnType<typeof setStatusUser>
+	| ReturnType<typeof addPostActionCreator>
+	| ReturnType<typeof setUserProfile>
+	| ReturnType<typeof deletePost>;
 
 export type PostType = {
 	id: number
@@ -84,6 +89,8 @@ const profileReducer = (state: InitialProfileStateType = initialState, action: p
 			return { ...state, profile: { ...action.profile } }
 		case PROFILE_ACTIONS_TYPE.SET_STATUS:
 			return { ...state, status: action.status }
+		case PROFILE_ACTIONS_TYPE.DELETE_POST:
+			return { ...state, posts: state.posts.filter(p => p.id !== action.postId) }
 		default:
 			return state
 	}
@@ -92,6 +99,9 @@ const profileReducer = (state: InitialProfileStateType = initialState, action: p
 export const addPostActionCreator = (newPostText: string) => ({ type: PROFILE_ACTIONS_TYPE.ADD_POST, newPostText }) as const
 export const setUserProfile = (profile: profileType) => ({ type: PROFILE_ACTIONS_TYPE.SET_USER_PROFILE, profile }) as const
 export const setStatusUser = (status: string) => ({ type: PROFILE_ACTIONS_TYPE.SET_STATUS, status }) as const
+export const deletePost = (postId: number) => ({ type: PROFILE_ACTIONS_TYPE.DELETE_POST, postId }) as const
+
+
 
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
 
